@@ -1,0 +1,18 @@
+language: java
+jdk:
+- oraclejdk8
+branches:
+  only:
+  - develop
+  - preproduction
+  - production
+notifications:
+  email:
+    recipients:
+    - r.falconi9030@gmail.com
+
+script:
+#Test unitario y de integracion en develop
+- mvn verify --settings settings.xml
+- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent verify --settings settings.xml
+- mvn sonar:sonar -Dsonar.organization=rafaelfalconi-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=4def0909c885887707bdd276693b88a112cc863f --settings settings.xml
